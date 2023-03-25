@@ -186,7 +186,11 @@ class _mapPageState extends State<mapPage> {
                                     if (index == 1) {
                                       Navigator.push(
                                           context,
-                                          MaterialPageRoute(builder: (context) => listPage(entries: lostObjects)));
+                                          MaterialPageRoute(builder: (context) => listPage(
+                                            lostObjects: lostObjects,
+                                            foundObjects: foundObjects,
+                                            displayLostItems: true
+                                      )));
                                     }
                                   });
                                 },
@@ -209,15 +213,6 @@ class _mapPageState extends State<mapPage> {
                                 maxHeight: dim.height * 0.5,
                                 controller: _panelController,
                                 backdropEnabled: true,
-                                // collapsed: Container(
-                                //     decoration: const BoxDecoration(
-                                //       color: Colors.blueGrey,
-                                //     ),
-                                //     child: const Center(
-                                //         child: Text(
-                                //       "Click on the map to place a pin",
-                                //       style: TextStyle(color: Colors.white),
-                                //   ))),
                                 panel: SwitchApp(coord: tempCoords),
                                 body: GoogleMap(
                                   onMapCreated: _onMapCreated,
@@ -229,11 +224,6 @@ class _mapPageState extends State<mapPage> {
                                     _add(coords.latitude, coords.longitude);
                                     tempCoords = coords;
                                     _panelController.open();
-
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) => SwitchApp(coord: coords)));
                                   },
                                   markers: Set<Marker>.of(markers.values),
                                 ),
