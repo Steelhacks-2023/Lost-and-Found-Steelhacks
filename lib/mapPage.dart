@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lost_found_steelhacks/lostAndFoundObject.dart';
 import 'package:lost_found_steelhacks/lostAndFoundObject.dart';
+import 'package:lost_found_steelhacks/listPage.dart';
 import 'package:lost_found_steelhacks/postPage.dart';
 import 'package:lost_found_steelhacks/itemRequest.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -146,6 +147,17 @@ class _mapPageState extends State<mapPage> {
                 return Scaffold(
                   appBar: AppBar(
                     title: const Text("Lost and Found"),
+                    actions: <Widget>[
+                      ElevatedButton(
+                        onPressed: () {  
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => listPage(entries: lostObjects))
+                          );
+                        },
+                        child: null,
+                      )
+                    ]
                   ),
                   body: SlidingUpPanel(
                     // defaultPanelState: PanelState.CLOSED,
