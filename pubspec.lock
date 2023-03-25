@@ -326,7 +326,7 @@ packages:
     source: sdk
     version: "0.0.99"
   sliding_up_panel:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: sliding_up_panel
       sha256: "578e90956a6212d1e406373250b2436a0f3afece29aee3c24c8360094d6cf968"
