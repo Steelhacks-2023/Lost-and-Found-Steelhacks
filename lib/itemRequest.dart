@@ -44,28 +44,6 @@ const List<Widget> options = <Widget>[
 //   await Firebase.initializeApp();
 //   runApp(const SwitchApp());
 // }
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(SwitchApp(coord: local));
-}
-
-class SwitchApp extends StatelessWidget {
-  //const SwitchApp({super.key});
-  const SwitchApp({Key? key, required this.coord}) : super(key: key);
-
-  final LatLng coord;
-  @override
-  Widget build(BuildContext context) {
-    lat = coord.latitude;
-    long = coord.longitude;
-    return const MaterialApp(
-      home: Scaffold(
-        //appBar: AppBar(title: const Text('Switch Sample')),
-        body: FormWidget(),
-      ),
-    );
-  }
-}
 
 class FormWidget extends StatefulWidget {
   const FormWidget({super.key});
@@ -81,12 +59,10 @@ class _FormWidgetState extends State<FormWidget> {
   @override
   Widget build(BuildContext context) {
     File imageUrl;
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(100, 10, 100, 12),
-      child: Form(
+    return Form(
         key: _formKey,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             //SwitchExample(),
             const Text('Enter your item from: ',
@@ -189,8 +165,7 @@ class _FormWidgetState extends State<FormWidget> {
               ),
             ),
           ],
-        ),
-      ),
+        )
     );
   }
 }

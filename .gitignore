@@ -49,3 +49,6 @@ app.*.map.json
 # /ios
 # /web
 # lib/firebase_options.dart
+
+# Ignore Launch Json Specs
+launch.json

@@ -11,6 +11,7 @@ import 'package:google_maps_flutter_web/google_maps_flutter_web.dart'
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lost_found_steelhacks/Utils.dart';
+import 'package:lost_found_steelhacks/itemForm.dart';
 import 'package:lost_found_steelhacks/lostAndFoundObject.dart';
 import 'package:lost_found_steelhacks/lostAndFoundObject.dart';
 import 'package:lost_found_steelhacks/postPage.dart';
@@ -90,8 +91,6 @@ class _mapPageState extends State<mapPage> {
     });
   }
 
-
-
   final Stream<QuerySnapshot> _lostCollectionStream =
       FirebaseFirestore.instance.collection('Lost').snapshots();
 
@@ -123,7 +122,6 @@ class _mapPageState extends State<mapPage> {
                     lostSnapshot.connectionState == ConnectionState.waiting) {
                   return Text("Waiting Getting Data");
                 }
-      
 
                 List<LostAndFoundObject> lostObjects = [];
                 List<LostAndFoundObject> foundObjects = [];
@@ -143,47 +141,54 @@ class _mapPageState extends State<mapPage> {
                     icon: foundMarkerIcon,
                     position: LatLng(geo.latitude, geo.longitude),
                     onTap: () => showDialog(
-                      barrierDismissible: true,
-                      context: context,
-                       builder: (BuildContext) => AlertDialog(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(32.0))),
-                        title: Text("Item Information"),
-                        insetPadding: EdgeInsets.all(200),
-                        content: Column(children: [
-                          Flexible(
-                            flex: 2,
-                            fit: FlexFit.tight,
-                            child: Container(
-                              child: Text("Item Name: " + data["ItemName"])),
-                          ),
-                          Flexible(
-                            flex: 4,
-                            fit: FlexFit.tight,
-                            child: Container(
-                              child: Text("Item Description: " + data["Description"])),
-                          ),
-                          // Flexible(
-                          //   flex: 5,
-                          //   fit: FlexFit.tight,
-                          //   child: Container(
-                          //     child: Image.asset(data["Picture"]),
-                          //   )
-                          // ),
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.tight,
-                            child: Container(
-                              child: Text("Contact Info: " + data["Phone"].toString())),
-                          )
-                        ],),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, "close"), 
-                            child: const Text("Close"))
-                        ],
-                        backgroundColor: Colors.lightGreenAccent,
-                       )),
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (BuildContext) => AlertDialog(
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(32.0))),
+                              title: Text("Item Information"),
+                              insetPadding: EdgeInsets.all(200),
+                              content: Column(
+                                children: [
+                                  Flexible(
+                                    flex: 2,
+                                    fit: FlexFit.tight,
+                                    child: Container(
+                                        child: Text(
+                                            "Item Name: " + data["ItemName"])),
+                                  ),
+                                  Flexible(
+                                    flex: 4,
+                                    fit: FlexFit.tight,
+                                    child: Container(
+                                        child: Text("Item Description: " +
+                                            data["Description"])),
+                                  ),
+                                  // Flexible(
+                                  //   flex: 5,
+                                  //   fit: FlexFit.tight,
+                                  //   child: Container(
+                                  //     child: Image.asset(data["Picture"]),
+                                  //   )
+                                  // ),
+                                  Flexible(
+                                    flex: 1,
+                                    fit: FlexFit.tight,
+                                    child: Container(
+                                        child: Text("Contact Info: " +
+                                            data["Phone"].toString())),
+                                  )
+                                ],
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, "close"),
+                                    child: const Text("Close"))
+                              ],
+                              backgroundColor: Colors.lightGreenAccent,
+                            )),
                   );
 
                   markers[temp] = marker;
@@ -206,126 +211,80 @@ class _mapPageState extends State<mapPage> {
                     icon: lostMarkerIcon,
                     position: LatLng(geo.latitude, geo.longitude),
                     onTap: () => showDialog(
-                      barrierDismissible: true,
-                      context: context,
-                       builder: (BuildContext) => AlertDialog(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(32.0))),
-                        insetPadding: EdgeInsets.all(200),
-                        title: Text("Item Information"),
-                        content: Column(children: [
-                          Flexible(
-                            flex: 2,
-                            fit: FlexFit.tight,
-                            child: Container(
-                              child: Text("Item Name: " + data["ItemName"])),
-                          ),
-                          Flexible(
-                            flex: 4,
-                            fit: FlexFit.tight,
-                            child: Container(
-                              child: Text("Item Description: " + data["Description"])),
-                          ),
-                          // Flexible(
-                          //   flex: 5,
-                          //   fit: FlexFit.tight,
-                          //   child: Container(
-                          //     child: Image.asset(data["Picture"]),
-                          //   )
-                          // ),
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.tight,
-                            child: Container(
-                              child: Text("Contact Info: " + data["Phone"].toString())),
-                          )
-                        ],),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, "close"), 
-                            child: const Text("Close"))
-                        ],
-                        backgroundColor: Colors.redAccent,
-                       )),
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (BuildContext) => AlertDialog(
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(32.0))),
+                              insetPadding: EdgeInsets.all(200),
+                              title: Text("Item Information"),
+                              content: Column(
+                                children: [
+                                  Flexible(
+                                    flex: 2,
+                                    fit: FlexFit.tight,
+                                    child: Container(
+                                        child: Text(
+                                            "Item Name: " + data["ItemName"])),
+                                  ),
+                                  Flexible(
+                                    flex: 4,
+                                    fit: FlexFit.tight,
+                                    child: Container(
+                                        child: Text("Item Description: " +
+                                            data["Description"])),
+                                  ),
+                                  // Flexible(
+                                  //   flex: 5,
+                                  //   fit: FlexFit.tight,
+                                  //   child: Container(
+                                  //     child: Image.asset(data["Picture"]),
+                                  //   )
+                                  // ),
+                                  Flexible(
+                                    flex: 1,
+                                    fit: FlexFit.tight,
+                                    child: Container(
+                                        child: Text("Contact Info: " +
+                                            data["Phone"].toString())),
+                                  )
+                                ],
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, "close"),
+                                    child: const Text("Close"))
+                              ],
+                              backgroundColor: Colors.redAccent,
+                            )),
                   );
                   markers[temp] = marker;
                 }
 
-                PanelController _panelController = PanelController();
                 var dim = MediaQuery.of(context).size;
                 return Scaffold(
-                    resizeToAvoidBottomInset: false,
-                    body: Container(
-                        height: dim.height,
-                        child: Column(children: [
-                          Expanded(
-                              flex: 0,
-                              child: NavigationBar(
-                                onDestinationSelected: (int index) {
-                                  setState(() {
-                                    if (index == 1) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => listPage(
-                                            lostObjects: lostObjects,
-                                            foundObjects: foundObjects,
-                                            displayLostItems: true
-                                      )));
-                                    }
-                                  });
-                                },
-                                selectedIndex: currentPageIndex,
-                                destinations: const <Widget>[
-                                  NavigationDestination(
-                                    icon: Icon(Icons.explore),
-                                    label: 'Map',
-                                  ),
-                                  NavigationDestination(
-                                    icon: Icon(Icons.format_list_numbered),
-                                    label: 'List',
-                                  ),
-                                ],
-                              )),
-                          Expanded(
-                              flex: 5,
-                              child: SlidingUpPanel(
-                                defaultPanelState: PanelState.CLOSED,
-                                minHeight: 0,
-                                isDraggable: false,
-                                maxHeight: dim.height * 0.5,
+                    body: Stack(children: <Widget>[
+                  GoogleMap(
+                      onMapCreated: _onMapCreated,
+                      initialCameraPosition: CameraPosition(
+                        target: _center,
+                        zoom: 16,
+                      ),
+                      markers: Set<Marker>.of(markers.values),
+                      onTap: (coords) {
+                        //print("Map tapped");
+                        showDialog(
+                            barrierDismissible: true,
+                            context: context,
+                            builder: (BuildContext) => AlertDialog(
+                                  content: itemForm(),
+                                ));
 
-                                controller: _panelController,
-                                backdropEnabled: true,
-                                // collapsed: Container(
-                                //     decoration: const BoxDecoration(
-                                //       color: Colors.blueGrey,
-                                //     ),
-                                //     child: const Center(
-                                //         child: Text(
-                                //       "Click on the map to place a pin",
-                                //       style: TextStyle(color: Colors.white),
-                                //   ))),
-                                panel: new SwitchApp(coord: tempCoords),
-                                body: GoogleMap(
-                                  onMapCreated: _onMapCreated,
-                                  initialCameraPosition: CameraPosition(
-                                    target: _center,
-                                    zoom: 16,
-                                  ),
-                                  onTap: (coords) {
-                                    _add(coords.latitude, coords.longitude);
-                                    tempCoords = coords;
-                                    //_panelController.open();
-
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => SwitchApp(coord: coords)));
-                                  },
-                                  markers: Set<Marker>.of(markers.values),
-                                ),
-                              )),
-                        ])));
+                        _add(coords.latitude, coords.longitude);
+                      }),
+                ]));
               });
         });
   }
